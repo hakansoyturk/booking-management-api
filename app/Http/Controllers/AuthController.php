@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\AuthService;
+use App\Services\Interfaces\IAuthService;
 use Illuminate\Http\Response;
 class AuthController extends Controller
 {
-    public function __construct(private AuthService $authService) {}
+    /**
+     * Create a new interface instance.
+     *
+     * @param IAuthService $authService
+     */
+    public function __construct(private IAuthService $authService) {}
 
     public function register(Request $request)
     {
