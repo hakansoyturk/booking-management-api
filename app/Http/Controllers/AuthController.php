@@ -28,8 +28,8 @@ class AuthController extends Controller
         $user = $this->authService->register($request->all());
 
         return response()->json([
-            'message' => 'Successfully registered',
-            'user' => $user
+            'message' => 'User successfully registered',
+            'data' => $user
         ], Response::HTTP_CREATED);
     }
 
@@ -45,10 +45,16 @@ class AuthController extends Controller
         $response = $this->authService->login($request->only('email', 'password'));
 
         if (!$response) {
-            return response()->json(['message' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
+            return response()->json([
+                'message' => 'Invalid credentials',
+                'data' => null
+            ], Response::HTTP_UNAUTHORIZED);
         }
 
-        return response()->json($response);
+        return response()->json([
+            'message' => 'User successfully logged in',
+            'data' => $response
+        ], Response::HTTP_OK);
     }
 
     public function logout(Request $request)
@@ -57,7 +63,8 @@ class AuthController extends Controller
         $this->authService->logout($request);
 
         return response()->json([
-            'message' => 'Successfully logged out'
+            'message' => 'Successfully logged out',
+            'data' => null
         ], Response::HTTP_OK);
     }
 }
