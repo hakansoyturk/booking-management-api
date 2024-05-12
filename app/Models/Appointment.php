@@ -18,4 +18,10 @@ class Appointment extends Model
         'start_time',
         'end_time',
     ];
+
+    protected $hidden = [
+        'google_event_id',
+        'created_at',
+        'updated_at',
+    ];
 }
