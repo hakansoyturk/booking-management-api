@@ -1,0 +1,847 @@
+{
+	"info": {
+		"_postman_id": "158ab85c-282f-4549-82ca-1a6250b19485",
+		"name": "booking-management-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10732333"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost/api/login?email=test1@hotmail.com2&password=123123",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test1@hotmail.com2"
+								},
+								{
+									"key": "password",
+									"value": "123123"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "localhost/api/login?email=test@hotmail.com&password=123123",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"login"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test@hotmail.com"
+										},
+										{
+											"key": "password",
+											"value": "123123"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.6"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 May 2024 14:37:40 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User successfully logged in\",\n    \"data\": {\n        \"access_token\": \"8|aQfjfgwZLNeEh5a48efrm38FJXjPK8jg89pmmFOp25f51727\",\n        \"token_type\": \"Bearer\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/register?email=test@hotmail.com&password=123123&password_confirmation=123123&name=testname",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"register"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test@hotmail.com"
+								},
+								{
+									"key": "password",
+									"value": "123123"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "123123"
+								},
+								{
+									"key": "name",
+									"value": "testname"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "localhost/api/register?email=test@hotmail.com&password=123123&password_confirmation=123123&name=testname",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"register"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test@hotmail.com"
+										},
+										{
+											"key": "password",
+											"value": "123123"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "123123"
+										},
+										{
+											"key": "name",
+											"value": "testname"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.6"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 May 2024 14:36:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User successfully registered\",\n    \"data\": {\n        \"email\": \"test@hotmail.com\",\n        \"name\": \"testname\",\n        \"updated_at\": \"2024-05-12T14:36:41.000000Z\",\n        \"created_at\": \"2024-05-12T14:36:41.000000Z\",\n        \"id\": 5\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|NIgolj4WnQqWVcKMUDkAjf78MHmQHoTER58wUdc95cb6c41c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/logout",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Logout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "localhost/api/logout",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.6"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 May 2024 14:44:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Successfully logged out\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "List of selected salon's appointments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "8|aQfjfgwZLNeEh5a48efrm38FJXjPK8jg89pmmFOp25f51727",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/appointments?salonId=1",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "salonId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List of selected salon's appointments",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "localhost/api/appointments?salonId=1",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"appointments"
+									],
+									"query": [
+										{
+											"key": "salonId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.6"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 May 2024 14:39:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Appointments successfully fetched\",\n    \"data\": [\n        {\n            \"id\": 42,\n            \"user_id\": 1,\n            \"salon_id\": 1,\n            \"start_time\": \"2024-05-13 09:41:00\",\n            \"end_time\": \"2024-05-13 09:55:00\"\n        },\n        {\n            \"id\": 44,\n            \"user_id\": 1,\n            \"salon_id\": 1,\n            \"start_time\": \"2024-05-13 10:10:00\",\n            \"end_time\": \"2024-05-13 10:33:00\"\n        },\n        {\n            \"id\": 45,\n            \"user_id\": 1,\n            \"salon_id\": 1,\n            \"start_time\": \"2024-05-13 10:34:00\",\n            \"end_time\": \"2024-05-13 10:35:00\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Add an appointment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|eyC6hs0ZRiqiyFVVJChulwiW4IzM264EWJg807Rw99a56a3e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/appointments?salonId=1&startDateTime=2024-05-12 09:00&endDateTime=2024-05-12 10:00",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "salonId",
+									"value": "1"
+								},
+								{
+									"key": "startDateTime",
+									"value": "2024-05-12 09:00"
+								},
+								{
+									"key": "endDateTime",
+									"value": "2024-05-12 10:00"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add an appointment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "localhost/api/appointments?salonId=1&startDateTime=2024-05-13 13:34&endDateTime=2024-05-13 13:55",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"appointments"
+									],
+									"query": [
+										{
+											"key": "salonId",
+											"value": "1"
+										},
+										{
+											"key": "startDateTime",
+											"value": "2024-05-13 13:34"
+										},
+										{
+											"key": "endDateTime",
+											"value": "2024-05-13 13:55"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.6"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 May 2024 14:39:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Appointment successfully created\",\n    \"data\": {\n        \"start_time\": \"2024-05-13 13:34\",\n        \"end_time\": \"2024-05-13 13:55\",\n        \"salon_id\": \"1\",\n        \"user_id\": 5,\n        \"id\": 46\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update an appointment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|eyC6hs0ZRiqiyFVVJChulwiW4IzM264EWJg807Rw99a56a3e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/appointments/2?startDateTime=2024-05-11 11:30&endDateTime=2024-05-11 12:30",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"appointments",
+								"2"
+							],
+							"query": [
+								{
+									"key": "startDateTime",
+									"value": "2024-05-11 11:30"
+								},
+								{
+									"key": "endDateTime",
+									"value": "2024-05-11 12:30"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update an appointment",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "localhost/api/appointments/46?startDateTime=2024-05-13 14:21&endDateTime=2024-05-13 14:55&salonId=1",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"appointments",
+										"46"
+									],
+									"query": [
+										{
+											"key": "startDateTime",
+											"value": "2024-05-13 14:21"
+										},
+										{
+											"key": "endDateTime",
+											"value": "2024-05-13 14:55"
+										},
+										{
+											"key": "salonId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.6"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 May 2024 14:40:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Appointment successfully updated\",\n    \"data\": {\n        \"id\": 46,\n        \"user_id\": 5,\n        \"salon_id\": 1,\n        \"start_time\": \"2024-05-13 14:21\",\n        \"end_time\": \"2024-05-13 14:55\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete an appointment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/appointments/1",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"appointments",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete an appointment",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "localhost/api/appointments/46",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"appointments",
+										"46"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.6"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 May 2024 14:40:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Appointment successfully deleted\",\n    \"data\": {\n        \"id\": 46,\n        \"user_id\": 5,\n        \"salon_id\": 1,\n        \"start_time\": \"2024-05-13 14:21:00\",\n        \"end_time\": \"2024-05-13 14:55:00\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Salon",
+			"item": [
+				{
+					"name": "List of salons",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6|uZ6LU3d1r9WQ1YgYIywO64AcIWWzfhm9q67BqzX97f804f3c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost/api/salons",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"salons"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get list of salons",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "localhost/api/salons",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"salons"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.6"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 May 2024 14:44:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Salons fetched successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Salon 1\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Salon 2\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
