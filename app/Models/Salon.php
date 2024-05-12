@@ -20,4 +20,10 @@ class Salon extends Model
         'google_calendar_id',
         'name',
     ];
+
+    protected $hidden = [
+        'google_calendar_id',
+        'created_at',
+        'updated_at',
+    ];
 }
