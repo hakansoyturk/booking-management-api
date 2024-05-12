@@ -52,7 +52,7 @@ To migrate database salons table with seeds (Salon 1, Salon 2):
 
 ### localhost/api/register
 
-Creates a new user.
+- Creates a new user.
 
 Request Type: POST
 
@@ -69,7 +69,7 @@ Params:
 
 ### localhost/api/login
 
-It is used to create a new token so that you can use the API.
+- It is used to create a new token so that you can use the API.
 
 Request Type: POST
 
@@ -84,7 +84,7 @@ Params:
 
 ### localhost/api/logout
 
-Terminates the session of the user belonging to the current token.
+- Terminates the session of the user belonging to the current token.
 
 Request Type: POST
 
@@ -95,7 +95,7 @@ Headers field:
 
 ### localhost/api/appointments
 
-Returns a list of all appointments for a salon based on the salonId specified in the parameter.
+- Returns a list of all appointments for a salon based on the salonId specified in the parameter.
 
 Request Type: GET
 
@@ -112,9 +112,9 @@ Note: The current demo only includes Salon 1 and Salon 2.
 
 ### localhost/api/appointments
 
-Creates an appointment date for a salon whose salonId is given.<br>
-startDateTime is the start time of the appointment and endDateTime is the end time of the appointment.<br>
-Date values must be in "Y-m-d H:i" format.
+- Creates an appointment date for a salon whose salonId is given.
+- startDateTime is the start time of the appointment and endDateTime is the end time of the appointment.
+- Date values must be in "Y-m-d H:i" format.
 
 Request Type: POST
 
@@ -131,10 +131,10 @@ Params:
 
 ### localhost/api/appointments/{id}
 
-It updates the date of a created appointment.<br>
-The {id} value represents the id of the created appointment.
-startDateTime is the start time of the appointment and endDateTime is the end time of the appointment.<br>
-Date values must be in "Y-m-d H:i" format.
+- It updates the date of a created appointment.
+- The {id} value represents the id of the created appointment.
+- startDateTime is the start time of the appointment and endDateTime is the end time of the appointment.
+- Date values must be in "Y-m-d H:i" format.
 
 Request Type: PUT
 
@@ -151,8 +151,8 @@ Params:
 
 ### localhost/api/delete/{id}
 
-It deletes a created appointment.<br>
-The {id} value represents the id of the created appointment.
+- It deletes a created appointment.<br>
+- The {id} value represents the id of the created appointment.
 
 Request Type: DELETE
 
@@ -163,7 +163,7 @@ Headers field:
 
 ### localhost/api/salons
 
-Returns a list of all Salons in the API.
+- Returns a list of all Salons in the API.
 
 Request Type: GET
 
