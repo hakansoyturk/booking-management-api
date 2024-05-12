@@ -6,8 +6,12 @@ use App\Models\Salon;
 use App\Services\Interfaces\IGoogleCalendarService;
 use Carbon\Carbon;
 use Spatie\GoogleCalendar\Event;
+
+// Bu sınıf, IGoogleCalendarService interface'ini implement eder.
+// Google Calendar ile ilgili işlemler bu serviste gerçekleştirilir.
 class GoogleCalendarService implements IGoogleCalendarService
 {
+    // Google Calendar'da yeni bir etkinlik oluşturur
     public function store($request)
     {
 
@@ -15,18 +19,19 @@ class GoogleCalendarService implements IGoogleCalendarService
         $startTime = $request->query('startDateTime');
         $endTime = $request->query('endDateTime');
 
+        // Kullanılacak takvimi değiştir
         $this->changeCalendar($salonId);
 
-        //create a new event
+        // Yeni bir event oluşturuldu.
         $event = new Event;
         $event->name = 'Salon Randevu';
         $event->description = 'Salona yapılmış olan randevu';
 
-        // Convert request datetime to Carbon instances
+        // Request'ten gelen tarihler Carbon instance'larına dönüştürülüyor
         $startDateTime = Carbon::createFromFormat('Y-m-d H:i', $startTime, 'Europe/Istanbul');
         $endDateTime = Carbon::createFromFormat('Y-m-d H:i', $endTime, 'Europe/Istanbul');
 
-        // Convert to UTC
+        // Timezone'u UTC'ye dönüştürme
         $startDateTime->setTimezone('UTC');
         $endDateTime->setTimezone('UTC');
 
@@ -36,21 +41,25 @@ class GoogleCalendarService implements IGoogleCalendarService
         $newEvent = $event->save();
         return $newEvent->id;
     }
+
+    // Google Calendar'da etkinliği günceller
     public function update($appointment, $request){
         
         $startTime = $request->query('startDateTime');
         $endTime = $request->query('endDateTime');
 
-        // Convert request datetime to Carbon instances
+        // Request'ten gelen tarihler Carbon instance'larına dönüştürülüyor
         $startDateTime = Carbon::createFromFormat('Y-m-d H:i', $startTime, 'Europe/Istanbul');
         $endDateTime = Carbon::createFromFormat('Y-m-d H:i', $endTime, 'Europe/Istanbul');
 
-        // Convert to UTC
+        // Timezone'u UTC'ye dönüştürme
         $startDateTime->setTimezone('UTC');
         $endDateTime->setTimezone('UTC');
         
+        // Kullanılacak takvimi değiştir
         $this->changeCalendar($appointment->salon_id);
 
+        // Etkinliği bulmak için Google Calendar'da etkinlik ID'sini kullan
         $event = Event::find($appointment->google_event_id);
 
         $event->startDateTime = $startDateTime;
@@ -59,6 +68,7 @@ class GoogleCalendarService implements IGoogleCalendarService
         $event->save();
     }
     
+    // Google Calendar'da etkinliği siler
     public function destroy($appointment){
 
         $this->changeCalendar($appointment->salon_id);
@@ -67,6 +77,8 @@ class GoogleCalendarService implements IGoogleCalendarService
 
         $event->delete();
     }
+
+    // Kullanılacak takvimi değiştirir
     public function changeCalendar($salonId){
         // Fetch the salon from the database
         $salon = Salon::find($salonId);
