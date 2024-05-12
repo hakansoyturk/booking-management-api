@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseHelper;
+use Exception;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\IAuthService;
 use Illuminate\Http\Response;
+
 class AuthController extends Controller
 {
     /**
@@ -13,7 +16,9 @@ class AuthController extends Controller
      * @param IAuthService $authService
      */
     // Kullanılacak servisin bağımlılıkları enjekte edildi
-    public function __construct(private IAuthService $authService) {}
+    public function __construct(private IAuthService $authService)
+    {
+    }
 
     public function register(Request $request)
     {
@@ -24,13 +29,21 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed'
         ]);
 
-        // Kullanıcı kayıt edildi
-        $user = $this->authService->register($request->all());
-
-        return response()->json([
-            'message' => 'User successfully registered',
-            'data' => $user
-        ], Response::HTTP_CREATED);
+        try {
+            // Kullanıcı kayıt edildi
+            $user = $this->authService->register($request->all());
+            return ResponseHelper::createResponse(
+                'User successfully registered',
+                $user,
+                Response::HTTP_CREATED
+            );
+        } catch (Exception $e) {
+            return ResponseHelper::handleException(
+                'An error occurred while registering the user',
+                null,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     public function login(Request $request)
@@ -41,30 +54,49 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        // Kullanıcının giriş yapabilmesi için gerekli bilgiler kontrol edildi
-        $response = $this->authService->login($request->only('email', 'password'));
+        try {
+            // Kullanıcının giriş yapabilmesi için gerekli bilgiler kontrol edildi
+            $response = $this->authService->login($request->only('email', 'password'));
 
-        if (!$response) {
-            return response()->json([
-                'message' => 'Invalid credentials',
-                'data' => null
-            ], Response::HTTP_UNAUTHORIZED);
+            if (!$response) {
+                return ResponseHelper::handleException(
+                    'Invalid credentials',
+                    null,
+                    Response::HTTP_UNAUTHORIZED
+                );
+            }
+
+            return ResponseHelper::createResponse(
+                'User successfully logged in',
+                $response,
+                Response::HTTP_OK
+            );
+        } catch (Exception $e) {
+            return ResponseHelper::handleException(
+                'An error occurred while logging in the user',
+                null,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
-
-        return response()->json([
-            'message' => 'User successfully logged in',
-            'data' => $response
-        ], Response::HTTP_OK);
     }
 
     public function logout(Request $request)
     {
-        // Kullanıcı çıkış yaptı
-        $this->authService->logout($request);
-
-        return response()->json([
-            'message' => 'Successfully logged out',
-            'data' => null
-        ], Response::HTTP_OK);
+        try {
+            // Kullanıcı çıkış yaptı
+            $this->authService->logout($request);
+            return ResponseHelper::createResponse(
+                'Successfully logged out',
+                null,
+                Response::HTTP_OK
+            );
+        } catch (Exception $e) {
+            return ResponseHelper::handleException(
+                'An error occurred while logging out the user',
+                null,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
+
 }

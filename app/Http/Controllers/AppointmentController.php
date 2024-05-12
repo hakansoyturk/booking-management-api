@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseHelper;
 use App\Http\Requests\AppointmentRequest;
 use App\Services\Interfaces\IAppointmentService;
 use App\Services\Interfaces\IGoogleCalendarService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -33,13 +35,21 @@ class AppointmentController extends Controller
             'salonId' => 'required|exists:salons,id',
         ]);
 
-        // İlgili salon için tüm randevular getirildi
-        $appointments = $this->appointmentService->getAllAppointments($request->salonId);
-
-        return response()->json([
-            'message' => 'Appointments successfully fetched',
-            'data' => $appointments
-        ], Response::HTTP_OK);
+        try {
+            // İlgili salon için tüm randevular getirildi
+            $appointments = $this->appointmentService->getAllAppointments($request->salonId);
+            return ResponseHelper::createResponse(
+                'Appointments successfully fetched',
+                $appointments,
+                Response::HTTP_OK
+            );
+        } catch (Exception $e) {
+            return ResponseHelper::handleException(
+                'An error occurred while fetching the appointments',
+                null,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     /**
@@ -93,22 +103,31 @@ class AppointmentController extends Controller
         $appointment = $this->appointmentService->findAppointmentById($id);
 
         if (!$appointment) {
-            return response()->json([
-                'message' => 'Appointment not found or not owned by the user',
-                'data' => null
-        ], Response::HTTP_NOT_FOUND);
+            return ResponseHelper::handleException(
+                'Appointment not found or not owned by the user',
+                null,
+                Response::HTTP_NOT_FOUND
+            );
         }
 
-        // Google Calendar'da güncelleme yapıldı
-        $this->googleCalendarService->update($appointment, $request);
-        
-        // Appointment tablosunda güncelleme yapıldı
-        $this->appointmentService->updateAppointment($appointment, $request);
+        try {
+            // Google Calendar'da randevu güncellendi
+            $this->googleCalendarService->update($appointment, $request);
+            // Appointment tablosunda randevu güncellendi
+            $this->appointmentService->updateAppointment($appointment, $request);
 
-        return response()->json([
-            'message' => 'Appointment successfully updated',
-            'data' => $appointment
-        ], Response::HTTP_OK);
+            return ResponseHelper::createResponse(
+                'Appointment successfully updated',
+                $appointment,
+                Response::HTTP_OK
+            );
+        } catch (Exception $e) {
+            return ResponseHelper::handleException(
+                'An error occurred while updating the appointment',
+                null,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     /**
@@ -119,21 +138,30 @@ class AppointmentController extends Controller
         // Silinecek randevu bulundu
         $appointment = $this->appointmentService->findAppointmentById($id);
 
-        if ($appointment) {
-            // Google Calendar'dan randevu silindi
-            $this->googleCalendarService->destroy($appointment);
-
-            // Appointment tablosundan randevu silindi
-            $appointment->delete();
-            return response()->json([
-                'message' => 'Appointment successfully deleted',
-                'data' => $appointment
-            ], Response::HTTP_OK);
+        if (!$appointment) {
+            return ResponseHelper::handleException(
+                'Appointment not found or not owned by the user',
+                null,
+                Response::HTTP_NOT_FOUND
+            );
         }
 
-        return response()->json([
-            'message' => 'Appointment not found or not owned by the user',
-            'data' => null
-        ], Response::HTTP_NOT_FOUND);
+        try {
+            // Google Calendar'da randevu silindi
+            $this->googleCalendarService->destroy($appointment);
+            // Appointment tablosundan randevu silindi
+            $appointment->delete();
+            return ResponseHelper::createResponse(
+                'Appointment successfully deleted',
+                $appointment,
+                Response::HTTP_OK
+            );
+        } catch (Exception $e) {
+            return ResponseHelper::handleException(
+                'An error occurred while deleting the appointment',
+                null,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 }
